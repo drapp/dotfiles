@@ -8,9 +8,19 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Bundle 'christoomey/vim-tmux-navigator'
+Plugin 'sjbach/lusty'
+Plugin 'ctrlpvim/ctrlp.vim'
+
+nnoremap  <silent>   <tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bnext<CR>
+nnoremap  <silent> <s-tab>  :if &modifiable && !&readonly && &modified <CR> :write<CR> :endif<CR>:bprevious<CR>
+set nomodeline
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+set number
+set relativenumber
+let g:LycosaExplorerSuppressPythonWarning = 1
 
 execute pathogen#infect()
 syntax on
@@ -26,8 +36,8 @@ nnoremap <C-H> <C-W><C-H>
 imap <C-Space> <C-x><C-o>  
 set splitbelow
 set splitright
-let g:solarized_termtrans = 1
-colorscheme solarized
+"let g:solarized_termtrans = 1
+colorscheme solarized8
 set incsearch
 set hlsearch
 set backupdir=~/.vim/backup//
@@ -43,21 +53,20 @@ endfunction
 
 nnoremap Y y$
 nnoremap <Space> :
-nmap <silent> \r <Plug>LustyFilesystemExplorerFromHere<CR>
-nmap <silent> \t <Plug>LustyFilesystemExplorerFromHere<CR>
-nmap <silent> \f <Plug>LustyFilesystemExplorer<CR>
-nmap <silent> \b <Plug>LustyBufferExplorer<CR>
-nmap <silent> \g <Plug>LustyBufferGrep<CR>
+let g:LustyJugglerSuppressRubyWarning = 1
+nmap <silent> \r :LycosaFilesystemExplorerFromHere<CR>
+nmap <silent> \t :LycosaFilesystemExplorerFromHere<CR>
+nmap <silent> \f :LycosaFilesystemExplorer<CR>
+nmap <silent> \b :LycosaBufferExplorer<CR>
+nmap <silent> \g :LycosaBufferGrep<CR>
 let g:ctrlp_map = '\p'
+let g:ctrlp_cmd = 'CtrlP'
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-
-let @p = 'yyp==iio:format("drappLog f(s~p~n", [{f)C}]),'
-let @d = 'yawoio:format("drappLog pa ~p~n", [pa]),'
-let @t = 'y%oio:format("drappLog pa ~p~n", [pa]),'
-let @c = 'A€kbcatch Err:Reason ->io:format("drappLog caught ~p:~p ~p", [Err, Reason, erlang:get_stacktrace()])end,'
-let @n = 'rAllrBf>lskoio:format("drappLog caught ~p:~p~n", [A, B]),'
-let @b = 'F"i<<f";a>>'
+let g:ctrlp_max_files=200000
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(js|html|o|png)$'
+  \ }
 
 au BufNewFile,BufRead *.gradle setf groovy
 
@@ -78,15 +87,11 @@ augroup collumnLimit
 augroup END
 
 
-call togglebg#map("<F5>")
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '^deps$',
-  \ 'file': '\v\.beam$',
-  \ }
 nmap , <Plug>Sneak_s
 nmap < <Plug>Sneak_S
 xmap , <Plug>Sneak_s
 xmap < <Plug>Sneak_S
 omap , <Plug>Sneak_s
 omap < <Plug>Sneak_S
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+

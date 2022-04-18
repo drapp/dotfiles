@@ -51,7 +51,7 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Users/drapp/Code/go/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -73,38 +73,30 @@ alias very=git
 alias such=git
 alias much=git
 alias branch-clean='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
-
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^V" edit-command-line
-
-alias kill-cassandra='sudo pkill -f "java.*cassandra"'
-alias copyconf='cp src/main/resources/application.conf target/scala-2.10/classes/'
-
+alias kube=kubectl
+alias k=kubectl
 ggrep() { git grep "$*" | cat }
-
+cgrep() { git grep "$*" -- '*.cpp' -- '*.h' -- '*.c' | cat }
 hgrep() { history | grep "$*" }
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-export VAGRANT_SHARE_DIR=/Users/drapp/Code
-export VAGRANT_CPUS=4
-export VAGRANT_MEMORY=8192 # can bump this down to 6144 if you don't have as much memory
-export VAGRANT_DEFAULT_PROVIDER=virtualbox
-eval "$(rbenv init - --no-rehash)"
-
-# The next line updates PATH for the Google Cloud SDK.
-source '/Users/drapp/Code/google-cloud-sdk/path.zsh.inc'
+#autoload -z edit-command-line
+#zle -N edit-command-line
+#bindkey "^V" edit-command-line
 
 export EDITOR="vim"
-#bindkey -v 
+bindkey -v 
 
 # vi style incremental search
-#bindkey '^R' history-incremental-search-backward
-#bindkey '^S' history-incremental-search-forward
-#bindkey '^P' history-search-backward
-#bindkey '^N' history-search-forward  
-#
+bindkey '^R' history-incremental-search-backward
+bindkey '^S' history-incremental-search-forward
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward  
+bindkey "^[[A" history-search-backward
+bindkey "^[[B" history-search-forward
+
 export GOPATH=/Users/drapp/Code/go
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ssh-add -A 2> /dev/null
+
+ssh-add .ssh/id_rsa_csms
